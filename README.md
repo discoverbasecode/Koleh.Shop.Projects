@@ -1,6 +1,6 @@
 # Koleh.Shop.Projects
 
-[![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-9.0-blueviolet)](https://dotnet.microsoft.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A modern, scalable, and maintainable web application built with **ASP.NET Core Minimal APIs**, embracing **Clean Architecture** and **Domain-Driven Design (DDD)** principles. This project implements **CQRS** using **MediatR** for clear separation of concerns, robust command/query handling, and a clean, testable codebase. It supports multiple databases (**MongoDB**, **SQL Server**, **PostgreSQL**) and leverages **Entity Framework Core**, **FluentValidation**, and **AutoMapper** for a production-ready solution.
