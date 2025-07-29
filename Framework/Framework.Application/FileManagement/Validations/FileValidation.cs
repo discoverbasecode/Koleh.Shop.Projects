@@ -1,3 +1,4 @@
+using System.Drawing;
 using Microsoft.AspNetCore.Http;
 
 namespace Framework.Application.FileManagement.Validations;
@@ -37,5 +38,36 @@ public static class FileValidation
     {
         var ext = Path.GetExtension(fileName);
         return !string.IsNullOrWhiteSpace(ext) && allowedExtensions.Contains(ext);
+    }
+
+    public static bool IsValidImage(IFormFile? file)
+    {
+        if (file == null)
+            return false;
+
+        // تنظیم محدودیت‌های پیشنهادی (مثلاً حداکثر اندازه فایل: 5MB)
+        const long MaxFileSize = 5 * 1024 * 1024; // 5MB
+        var ValidExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+        var ValidContentTypes = new[] { "image/jpeg", "image/png", "image/gif", "image/bmp" };
+
+        if (file.Length == 0 || file.Length > MaxFileSize)
+            return false;
+
+        var ext = Path.GetExtension(file.FileName)?.ToLower();
+        if (ext == null || !ValidExtensions.Contains(ext))
+            return false;
+
+        if (!ValidContentTypes.Contains(file.ContentType))
+            return false;
+
+        try
+        {
+            using var image = Image.FromStream(file.OpenReadStream());
+            return image.RawFormat != null;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
