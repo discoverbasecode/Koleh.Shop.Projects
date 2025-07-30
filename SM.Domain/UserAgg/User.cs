@@ -106,6 +106,7 @@ public class User : AggregateRoot
 
     public void AddRole(List<UserRole> roles)
     {
+        roles.ForEach(role => role.UserId = Id);
         Roles.Clear();
         Roles.AddRange(roles);
     }
