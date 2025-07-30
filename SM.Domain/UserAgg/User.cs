@@ -55,6 +55,34 @@ public class User : AggregateRoot
     }
 
     #endregion
+   
+    #region User Address CRUD Methods
+
+    public void AddAddress(UserAddress address)
+    {
+        address.Id = Id;
+        Addresses.Add(address);
+    }
+
+    public void RemoveAddress(Guid addressId)
+    {
+        var firstAddress = Addresses.FirstOrDefault(c => c.Id == addressId);
+        if (firstAddress == null)
+            throw NotFoundException.Create("آدرس", addressId);
+        Addresses.Remove(firstAddress);
+    }
+
+    public void EditAddress(UserAddress address)
+    {
+        var firstAddress = Addresses.FirstOrDefault(c => c.Id == address.Id);
+        if (firstAddress == null)
+            throw NotFoundException.Create("آدرس", address.Id);
+        Addresses.Remove(firstAddress);
+        Addresses.Add(address);
+    }
+
+    #endregion
+
 
 
 }
