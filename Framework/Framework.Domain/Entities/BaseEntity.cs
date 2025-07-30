@@ -5,7 +5,7 @@ public abstract class BaseEntity : IBaseEntity
     public Guid Id { get; set; }
 
     public string? CreatedIp { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public string? CreatedBy { get; set; }
     public string? CreatedLocation { get; set; }
 
@@ -15,14 +15,14 @@ public abstract class BaseEntity : IBaseEntity
     public string? UpdatedLocation { get; set; }
 
     public string? DeletedIp { get; set; }
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
     public DateTime? DeletedAt { get; set; }
     public string? DeletedBy { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 
     public string? BlockedIp { get; set; }
-    public bool IsBlocked { get; set; }
+    public bool IsBlocked { get; set; } = false;
     public DateTime? BlockedAt { get; set; }
     public string? BlockedBy { get; set; }
 

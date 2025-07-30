@@ -70,7 +70,7 @@ public class User : AggregateRoot
 
     public void AddAddress(UserAddress address)
     {
-        address.Id = Id;
+        address.UserId = Id;
         Addresses.Add(address);
     }
 
@@ -114,7 +114,7 @@ public class User : AggregateRoot
 
     #region Guards Methods
 
-    public void Guards(string phone, string email, IDomainUserServices domainUserServices)
+    private void Guards(string phone, string email, IDomainUserServices domainUserServices)
     {
         InvalidPhoneNumberException.Create(phone);
         InvalidEmailException.Create(email);
