@@ -27,8 +27,9 @@ public class User : AggregateRoot
     private User(
         string name, string family,
         string phone, string email,
-        string password, Gender gender)
+        string password, Gender gender, IDomainUserServices domainUserServices)
     {
+        Guards(phone, email, domainUserServices);
         Name = name;
         Family = family;
         Phone = phone;
@@ -40,20 +41,27 @@ public class User : AggregateRoot
     public static User Create(
         string name, string family,
         string phone, string email,
-        string password, Gender gender)
+        string password, Gender gender, IDomainUserServices domainUserServices)
     {
-        return new User(name, family, phone, email, password, gender);
+        return new User(name, family, phone, email, password, gender, domainUserServices);
     }
 
     public void Edit(
         string name, string family,
-        string phone, string email, Gender gender)
+        string phone, string email, Gender gender, IDomainUserServices domainUserServices)
     {
+        Guards(phone, email, domainUserServices);
         Name = name;
         Family = family;
         Phone = phone;
         Email = email;
         Gender = gender;
+    }
+
+
+    public static User RegisterUser(string phone, string password, IDomainUserServices domainUserServices)
+    {
+        return new User("", "", phone, "", password, Gender.Male, domainUserServices);
     }
 
     #endregion
@@ -104,7 +112,6 @@ public class User : AggregateRoot
 
     #endregion
 
-
     #region Guards Methods
 
     public void Guards(string phone, string email, IDomainUserServices domainUserServices)
@@ -125,7 +132,6 @@ public class User : AggregateRoot
         if (email != Email)
             if (domainUserServices.IsEmailExist(email))
                 throw DuplicateValueException.Create("ایمیل", email);
-        
     }
 
     #endregion
