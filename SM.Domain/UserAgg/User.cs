@@ -1,6 +1,8 @@
 ﻿using Framework.Domain.Common;
 using Framework.Domain.Exceptions;
+using Framework.Domain.Extensions;
 using SM.Domain.UserAgg.Enums;
+using SM.Domain.UserAgg.Services;
 
 namespace SM.Domain.UserAgg;
 
@@ -55,7 +57,7 @@ public class User : AggregateRoot
     }
 
     #endregion
-   
+
     #region User Address CRUD Methods
 
     public void AddAddress(UserAddress address)
@@ -83,6 +85,48 @@ public class User : AggregateRoot
 
     #endregion
 
+    #region Wallet CRUD Methods
+
+    public void AddWallet(Wallet wallet)
+    {
+        Wallets.Add(wallet);
+    }
+
+    #endregion
+
+    #region User Role CRUD Methods
+
+    public void AddRole(List<UserRole> roles)
+    {
+        Roles.Clear();
+        Roles.AddRange(roles);
+    }
+
+    #endregion
 
 
+    #region Guards Methods
+
+    public void Guards(string phone, string email, IDomainUserServices domainUserServices)
+    {
+        InvalidPhoneNumberException.Create(phone);
+        InvalidEmailException.Create(email);
+
+        if (phone.IsValidPhoneNumber())
+            throw InvalidPhoneNumberException.Create(phone);
+
+        if (email.IsValidEmail())
+            throw InvalidEmailException.Create(email);
+
+        if (phone != Phone)
+            if (domainUserServices.IsPhoneExist(phone))
+                throw DuplicateValueException.Create("شماره تلفن", phone);
+
+        if (email != Email)
+            if (domainUserServices.IsEmailExist(email))
+                throw DuplicateValueException.Create("ایمیل", email);
+        
+    }
+
+    #endregion
 }
