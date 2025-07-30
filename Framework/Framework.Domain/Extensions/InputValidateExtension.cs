@@ -9,7 +9,6 @@ public static class InputValidateExtension
     {
         if (string.IsNullOrWhiteSpace(email))
             return false;
-
         try
         {
             // Normalize the domain
@@ -138,4 +137,6 @@ public static class InputValidateExtension
 
         return sum < 2 && lastNumber == sum || sum >= 2 && lastNumber == 11 - sum;
     }
+    
+    
 }
