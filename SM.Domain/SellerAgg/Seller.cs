@@ -10,12 +10,17 @@ public class Seller : AggregateRoot
 {
     #region Seller Properties and Constructor and static Methods
 
+    private Seller()
+    {
+    }
+
     public Seller(string shopName, string nationalCode, string description)
     {
         Guard(shopName, nationalCode);
         ShopName = shopName;
         NationalCode = nationalCode;
         Description = description;
+        Inventories = new List<SellerInventory>();
     }
 
     public Guid UserId { get; private set; }
@@ -31,6 +36,32 @@ public class Seller : AggregateRoot
         UpdatedAt = DateTime.UtcNow;
     }
 
+    public void AddInventory(SellerInventory inventory)
+    {
+        if (Inventories.Any(c => c.ProductId == inventory.ProductId))
+            throw InvalidFieldException.Create("شناسه محصول", "محصول با این شناسه قبلاً در موجودی ثبت شده است.");
+        Inventories.Add(inventory);
+    }
+
+    public void EditInventory(SellerInventory inventory)
+    {
+        var currentInventory = Inventories.FirstOrDefault(c => c.Id == inventory.Id);
+        if (currentInventory == null)
+            throw InvalidFieldException.Create("شناسه", DomainMessageTemplate.NotFound);
+
+        Inventories.Remove(currentInventory);
+        Inventories.Add(inventory);
+    }
+
+    public void DeleteInventory(Guid id)
+    {
+        var currentInventory = Inventories.FirstOrDefault(c => c.Id == id);
+        if (currentInventory == null)
+            throw InvalidFieldException.Create("شناسه", DomainMessageTemplate.NotFound);
+        Inventories.Remove(currentInventory);
+    }
+
+
     public void Edit(string shopName, string nationalCode)
     {
         Guard(shopName, nationalCode);
@@ -40,7 +71,6 @@ public class Seller : AggregateRoot
     }
 
     #endregion
-
 
     #region Guards Method
 
