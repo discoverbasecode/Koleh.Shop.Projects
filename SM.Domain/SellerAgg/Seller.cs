@@ -1,4 +1,5 @@
-﻿using Framework.Domain.Common;
+﻿using Framework.Application.ValidationExtensions;
+using Framework.Domain.Common;
 using Framework.Domain.Entities;
 using Framework.Domain.Exceptions;
 using SM.Domain.SellerAgg.Enums;
@@ -8,6 +9,14 @@ namespace SM.Domain.SellerAgg;
 public class Seller : AggregateRoot
 {
     #region Seller Properties and Constructor and static Methods
+
+    public Seller(string shopName, string nationalCode, string description)
+    {
+        Guard(shopName, nationalCode);
+        ShopName = shopName;
+        NationalCode = nationalCode;
+        Description = description;
+    }
 
     public Guid UserId { get; private set; }
     public string ShopName { get; private set; }
@@ -24,6 +33,7 @@ public class Seller : AggregateRoot
 
     public void Edit(string shopName, string nationalCode)
     {
+        Guard(shopName, nationalCode);
         ShopName = shopName;
         NationalCode = nationalCode;
         UpdatedAt = DateTime.UtcNow;
@@ -38,6 +48,12 @@ public class Seller : AggregateRoot
     {
         if (shopName == null)
             throw InvalidFieldException.Create("نام فروشگاه", DomainMessageTemplate.Required);
+
+        if (nationalCode == null)
+            throw InvalidFieldException.Create("کد ملی", DomainMessageTemplate.Required);
+
+        if (NationalIdValidator.IsValidIranianNationalId(nationalCode) == false)
+            throw InvalidFieldException.Create("کد ملی", DomainMessageTemplate.InvalidField);
     }
 
     #endregion
