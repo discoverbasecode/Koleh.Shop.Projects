@@ -7,4 +7,4 @@ namespace SM.Application.Contracts.Features.Category;
 public record CreateCategoryCommand(
     string Title,
     string Slug,
-    ISeoInfo SeoInfo) : IBaseCommand, IBaseCommand<Result>;
+    ISeoInfo SeoInfo) : IBaseCommand;
