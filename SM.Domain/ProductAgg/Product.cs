@@ -84,7 +84,7 @@ public class Product : AggregateRoot
 
     #region Guards
 
-    public void Guards(string slug, string title, string imageName, string description,
+    private void Guards(string slug, string title, string imageName, string description,
         IProductDomainService productDomainService)
     {
         if (slug == null) throw InvalidFieldException.Create("اسلاگ", DomainMessageTemplate.NotEmpty);
@@ -93,7 +93,7 @@ public class Product : AggregateRoot
         if (description == null) throw InvalidFieldException.Create("توضیحات", DomainMessageTemplate.NotEmpty);
 
         if (slug != Slug)
-            if (productDomainService.SlugExists(slug))
+            if (productDomainService.SlugExists(slug.ToSlug()))
                 throw SlugIsDuplicateException.Create(slug);
     }
 
