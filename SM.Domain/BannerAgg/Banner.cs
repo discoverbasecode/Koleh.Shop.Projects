@@ -1,3 +1,5 @@
+using Ardalis.SharedKernel;
+using Framework.Domain.Common;
 using Framework.Domain.Entities;
 using Framework.Domain.Exceptions;
 using SM.Domain.BannerAgg.Enums;
@@ -35,5 +37,4 @@ public class Banner : BaseEntity
         if (imageName == null)
             throw InvalidFieldException.Create("نام تصویر", DomainMessageTemplate.NotEmpty);
     }
-
 }

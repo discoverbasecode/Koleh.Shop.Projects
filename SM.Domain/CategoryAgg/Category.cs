@@ -1,4 +1,5 @@
-﻿using Framework.Domain.Common;
+﻿using Ardalis.SharedKernel;
+using Framework.Domain.Common;
 using Framework.Domain.Entities;
 using Framework.Domain.Exceptions;
 using Framework.Domain.Extensions;
@@ -6,7 +7,7 @@ using SM.Domain.CategoryAgg.Service;
 
 namespace SM.Domain.CategoryAgg;
 
-public class Category : AggregateRoot
+public class Category : AggregateRoot, IAggregateRoot
 {
     public string Title { get; private set; }
     public string Slug { get; private set; }

@@ -1,5 +1,6 @@
 ﻿using Framework.Domain.Common;
 using Framework.Domain.Exceptions;
+using SM.Domain.CommentAgg.Enums;
 
 namespace SM.Domain.CommentAgg;
 
@@ -43,11 +44,4 @@ public class Comment : AggregateRoot
         if (text.Length < 1000)
             throw InvalidFieldException.Create("متن", DomainMessageTemplate.MaxLength);
     }
-}
-
-public enum CommentStatus
-{
-    Pending,
-    Accepted,
-    Rejected,
 }
