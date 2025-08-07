@@ -2,6 +2,7 @@
 using Framework.Domain.Entities;
 using Framework.Domain.Exceptions;
 using Framework.Domain.Extensions;
+using SM.Domain.ProductAgg.Services;
 
 namespace SM.Domain.ProductAgg;
 
@@ -25,8 +26,9 @@ public class Product : AggregateRoot
     }
 
     public Product(string title, string imageName, string description, Guid categoryId, Guid subCategoryId,
-        string secondarySubCategoryId, ISeoInfo seoInfo, string slug)
+        string secondarySubCategoryId, ISeoInfo seoInfo, string slug, IProductDomainService productDomainService)
     {
+        Guards(slug, title, imageName, description, productDomainService);
         Title = title;
         ImageName = imageName;
         Descrition = description;
@@ -38,8 +40,9 @@ public class Product : AggregateRoot
     }
 
     public void Edit(string title, string imageName, string description, Guid categoryId, Guid subCategoryId,
-        string secondarySubCategoryId, ISeoInfo seoInfo, string slug)
+        string secondarySubCategoryId, ISeoInfo seoInfo, string slug, IProductDomainService productDomainService)
     {
+        Guards(slug, title, imageName, description, productDomainService);
         Title = title;
         ImageName = imageName;
         Descrition = description;
@@ -81,11 +84,17 @@ public class Product : AggregateRoot
 
     #region Guards
 
-    public void Guards(string title, string imageName, string description)
+    public void Guards(string slug, string title, string imageName, string description,
+        IProductDomainService productDomainService)
     {
+        if (slug == null) throw InvalidFieldException.Create("اسلاگ", DomainMessageTemplate.NotEmpty);
         if (title == null) throw InvalidFieldException.Create("عنوان", DomainMessageTemplate.NotEmpty);
         if (imageName == null) throw InvalidFieldException.Create("نام تصویر", DomainMessageTemplate.NotEmpty);
         if (description == null) throw InvalidFieldException.Create("توضیحات", DomainMessageTemplate.NotEmpty);
+
+        if (slug != Slug)
+            if (productDomainService.SlugExists(slug))
+                throw SlugIsDuplicateException.Create(slug);
     }
 
     #endregion
