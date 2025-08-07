@@ -3,6 +3,7 @@
 public abstract class DomainMessageTemplate
 {
     public const string Required = "فیلد اجباری است";
+    public const string NotEmpty = " خالی است";
     public const string InvalidField = "نامعتبر است";
     public const string NotFound = "اطلاعات درخواستی یافت نشد";
     public const string MaxLength = "تعداد کاراکترهای وارد شده بیشتر از حد مجاز است";
