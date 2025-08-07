@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\Comment\ChangeStatus\" />
+      <Folder Include="Features\Order\Additem\" />
+      <Folder Include="Features\Order\ChangeCount\" />
+      <Folder Include="Features\Order\RemoveItem\" />
+      <Folder Include="Features\Product\AddImage\" />
+      <Folder Include="Features\Product\RemoveImage\" />
+      <Folder Include="Features\Seller\AddInventory\" />
+      <Folder Include="Features\Seller\ChangeStatus\" />
+      <Folder Include="Features\Seller\EditInventory\" />
+      <Folder Include="Features\Seller\RemoveInventory\" />
+      <Folder Include="Features\User\AddAddress\" />
+      <Folder Include="Features\User\RemoveAddress\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Framework\Framework.Application\Framework.Application.csproj" />
+    </ItemGroup>
+
+</Project>

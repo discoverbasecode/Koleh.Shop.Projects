@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\Banner\Create\" />
+      <Folder Include="Features\Banner\Edit\" />
+      <Folder Include="Features\Comment\ChangeStatus\" />
+      <Folder Include="Features\Comment\Create\" />
+      <Folder Include="Features\Comment\Edit\" />
+      <Folder Include="Features\Order\Additem\" />
+      <Folder Include="Features\Order\ChangeCount\" />
+      <Folder Include="Features\Order\Create\" />
+      <Folder Include="Features\Order\Edit\" />
+      <Folder Include="Features\Order\RemoveItem\" />
+      <Folder Include="Features\Product\AddImage\" />
+      <Folder Include="Features\Product\Create\" />
+      <Folder Include="Features\Product\Edit\" />
+      <Folder Include="Features\Product\RemoveImage\" />
+      <Folder Include="Features\Role\Create\" />
+      <Folder Include="Features\Role\Edit\" />
+      <Folder Include="Features\Seller\AddInventory\" />
+      <Folder Include="Features\Seller\ChangeStatus\" />
+      <Folder Include="Features\Seller\Create\" />
+      <Folder Include="Features\Seller\EditInventory\" />
+      <Folder Include="Features\Seller\Edit\" />
+      <Folder Include="Features\Seller\RemoveInventory\" />
+      <Folder Include="Features\Slider\Create\" />
+      <Folder Include="Features\Slider\Edit\" />
+      <Folder Include="Features\User\AddAddress\" />
+      <Folder Include="Features\User\Create\" />
+      <Folder Include="Features\User\Edit\" />
+      <Folder Include="Features\User\RemoveAddress\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Ardalis.SharedKernel" Version="3.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Framework\Framework.Application\Framework.Application.csproj" />
+      <ProjectReference Include="..\SM.Application.Contracts\SM.Application.Contracts.csproj" />
+      <ProjectReference Include="..\SM.Domain\SM.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
