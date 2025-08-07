@@ -10,7 +10,7 @@ public class EditCommentCommandHandler(ICommentRepository commentRepository) : I
     public async Task<Result> Handle(EditCommentCommand request, CancellationToken cancellationToken)
     {
         var comment = await commentRepository.GetByIdAsync(request.CommentId, cancellationToken);
-        if (comment == null)
+        if (comment == null || comment.UserId != request.UserId)
             return Result.NotFound();
 
         comment.Edit(request.Text);
